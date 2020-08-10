@@ -5,17 +5,28 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import * as actions from './action';
+// import { addTodo, removeTodo } from './action';
 
 
 const ListaTodos = (props) => {
     const [text, setText] = useState('')
-    // const [todos, setTodos] 
 
     return (
         <div>
             <ul>
-                {props.todos.map(todo =>(
-                    <li key={todo.id}> {todo.text} </li>
+                {props.todos.map(todo => (
+                    <>
+                        <li key={todo.id}> {todo.text} </li>
+                        <button
+                            onClick={(ev) => {
+                                ev.preventDefault();
+                                ev.stopPropagation();
+                                props.removeTodo(todo.id)
+                                setText('')
+                                console.log(props);
+                            }}
+                        >excluir</button>
+                    </>
                 ))}
             </ul>
 
@@ -33,6 +44,7 @@ const ListaTodos = (props) => {
                     ev.preventDefault();
                     ev.stopPropagation();
                     props.addTodo(text)
+                    // actions.addTodo(text)
                     setText('')
                     console.log(props);
                 }}
@@ -41,13 +53,15 @@ const ListaTodos = (props) => {
     )
 }
 
-const mapStateToProps = state => ({
-    todos: state.todos,
-});
+const mapStateToProps = state => {
+    console.log('stateTodosLista', state)
+    return { todos: state }
+};
 
-const mapDispatchToProps = dispatch => {
-    return bindActionCreators(actions, dispatch);
-}
+// const mapDispatchToProps = { addTodo, removeTodo }
+const mapDispatchToProps = dispatch => (
+    bindActionCreators(actions, dispatch)
+);
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(ListaTodos);

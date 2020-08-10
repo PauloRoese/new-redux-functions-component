@@ -6,4 +6,13 @@ export function addTodo(text) {
         }
     }
 }
+export function removeTodo(id) {
+    console.log
+    return {
+        type: 'REMOVE_TODO',
+        payload: {
+            id: id
+        }
+    }
+}
 

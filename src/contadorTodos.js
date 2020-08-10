@@ -5,12 +5,14 @@ import { connect } from 'react-redux'
 
 function contadorTodos(props) {
     return (
-        <h2 > Contamos ao todo {props.todos.length}</h2>
-
+        <h2 > Contamos ao todo {props.todo.length}</h2>
     );
 }
 
-const mapStateToProps = state => ({
-    todos: state.todos,
-})
+const mapStateToProps = state => {
+    console.log('stateContador' ,state)
+    return { todo: state }
+}
+
+
 export default connect(mapStateToProps)(contadorTodos);
